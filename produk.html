@@ -6,7 +6,7 @@
     <title>Produk - Mineflybox_</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        * {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -249,19 +249,8 @@ nav {
 
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);  /* Memaksa 4 kolom sejajar di desktop */
+    grid-template-columns: repeat(4, 1fr);
     gap: 2.5rem;
-}
-/* Tambahkan ini untuk responsivitas, agar tetap 1 kolom di mobile */
-@media (max-width: 1024px) {  /* Tambahkan breakpoint baru jika belum ada */
-    .products-grid {
-        grid-template-columns: repeat(2, 1fr);  /* 2 kolom di tablet */
-    }
-}
-@media (max-width: 768px) {
-    .products-grid {
-        grid-template-columns: 1fr;  /* 1 kolom di mobile, seperti yang sudah ada */
-    }
 }
 
 .product-card {
@@ -649,6 +638,12 @@ footer > div > p {
 .whatsapp { color: #25D366; }
 
 /* ==================== RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
     .hamburger {
         display: flex;
@@ -729,137 +724,8 @@ footer > div > p {
         padding: 1.2rem 2rem;
         font-size: 1rem;
     }
-}
-</style>
-<script>
-    // Hamburger Menu Toggle
-const hamburger = document.getElementById('hamburger');
-const navLinks = document.getElementById('navLinks');
-
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('active');
-});
-
-// Close menu when clicking on a link
-const navItems = document.querySelectorAll('.nav-links a');
-navItems.forEach(item => {
-    item.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('active');
-    });
-});
-
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-// Navbar scroll effect
-let lastScroll = 0;
-const navbar = document.querySelector('nav');
-
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    if (currentScroll <= 0) {
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.08)';
-    } else {
-        navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.15)';
-    }
-    
-    lastScroll = currentScroll;
-});
-
-// Intersection Observer for fade-in animation
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
-
-// Observe all cards
-const cards = document.querySelectorAll('.product-card, .testimonial-card, .info-box, .about-card');
-cards.forEach(card => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(30px)';
-    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(card);
-});
-
-// Add loading effect for images
-const images = document.querySelectorAll('img');
-images.forEach(img => {
-    img.addEventListener('load', function() {
-        this.style.opacity = '1';
-    });
-    img.style.transition = 'opacity 0.5s ease';
-    img.style.opacity = '0';
-});
-
-// Counter animation for prices (optional enhancement)
-const animateValue = (element, start, end, duration) => {
-    let startTimestamp = null;
-    const step = (timestamp) => {
-        if (!startTimestamp) startTimestamp = timestamp;
-        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        const value = Math.floor(progress * (end - start) + start);
-        element.textContent = 'Rp ' + value.toLocaleString('id-ID');
-        if (progress < 1) {
-            window.requestAnimationFrame(step);
-        }
-    };
-    window.requestAnimationFrame(step);
-};
-
-// Initialize price animations when in viewport
-const priceObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
-            const priceText = entry.target.textContent.replace(/[^0-9]/g, '');
-            const price = parseInt(priceText);
-            animateValue(entry.target, 0, price, 1000);
-            entry.target.classList.add('animated');
-        }
-    });
-}, { threshold: 0.5 });
-
-const prices = document.querySelectorAll('.product-price');
-prices.forEach(price => {
-    priceObserver.observe(price);
-});
-
-// Add hover effect sound (optional - commented out by default)
-/*
-const buttons = document.querySelectorAll('.btn-order, .btn-partnership, .btn-cta');
-buttons.forEach(button => {
-    button.addEventListener('mouseenter', () => {
-        // Add sound effect here if desired
-        console.log('Button hovered');
-    });
-});
-*/
-
-// Console log for debugging
-console.log('Mineflybox Produk Page Loaded Successfully! 🎁');
-</script>
+} 
+    </style>
 </head>
 <body>
     <nav>
@@ -1114,6 +980,6 @@ console.log('Mineflybox Produk Page Loaded Successfully! 🎁');
         </div>
     </footer>
 
-    <script src="produk-script.js"></script>
+    <script src="produk.js"></script>
 </body>
 </html>
