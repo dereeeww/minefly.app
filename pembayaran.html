@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mineflybox_ - Pembayaran</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
+  <style>
 * {
     margin: 0;
     padding: 0;
@@ -220,7 +220,7 @@ nav {
 .qris-image {
     max-width: 200px;
     height: auto;
-    margin: 1rem auto; /* Tengah secara horizontal */
+    margin: 1rem auto;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
@@ -344,7 +344,7 @@ footer > p {
     </style>
 </head>
 <body>
-    <nav>
+ <nav>
         <div class="logo">🎁 Mineflybox_</div>
         <div class="hamburger" id="hamburger">
             <span></span>
@@ -432,7 +432,24 @@ footer > p {
         <p style="margin-top: 2rem; font-size: 0.9rem;">&copy; 2024 Mineflybox_. All Rights Reserved 💖</p>
     </footer>
 
-<script>
+    <script>
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
