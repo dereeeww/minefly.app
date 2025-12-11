@@ -1,32 +1,77 @@
-// Hamburger Menu Toggle
-const hamburger = document.getElementById('hamburger');
-const navLinks = document.getElementById('navLinks');
+// Fungsi untuk toggle menu navigasi (buka/tutup)
+function toggleMenu() {
+    const navLinks = document.getElementById('navLinks');
+    const menuIcon = document.querySelector('.menu-icon');
+    
+    if (navLinks) {
+        navLinks.classList.toggle('active');
+    }
+    
+    if (menuIcon) {
+        menuIcon.classList.toggle('active');
+    }
+}
 
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('active');
-});
-
-// Close menu when clicking a link
-const menuLinks = document.querySelectorAll('.nav-links a');
-menuLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
+// Fungsi untuk menutup menu
+function closeMenu() {
+    const navLinks = document.getElementById('navLinks');
+    const menuIcon = document.querySelector('.menu-icon');
+    
+    if (navLinks) {
         navLinks.classList.remove('active');
+    }
+    
+    if (menuIcon) {
+        menuIcon.classList.remove('active');
+    }
+}
+
+// Event listener untuk tombol menu (hamburger)
+document.addEventListener('DOMContentLoaded', function() {
+    const menuIcon = document.querySelector('.menu-icon');
+    
+    if (menuIcon) {
+        menuIcon.addEventListener('click', toggleMenu);
+    }
+    
+    // Tutup menu saat link diklik (khusus untuk mobile)
+    const navLinks = document.querySelectorAll('.nav-links a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Cek jika link adalah link eksternal (Linktree)
+            if (this.getAttribute('href').startsWith('http')) {
+                // Biarkan link eksternal terbuka secara normal
+                closeMenu();
+            } else {
+                // Untuk link internal, tutup menu
+                closeMenu();
+            }
+        });
+    });
+    
+    // Tutup menu saat klik di luar menu
+    document.addEventListener('click', function(e) {
+        const nav = document.querySelector('nav');
+        const navLinksEl = document.getElementById('navLinks');
+        
+        if (nav && navLinksEl && !nav.contains(e.target)) {
+            closeMenu();
+        }
+    });
+    
+    // Highlight menu aktif berdasarkan halaman saat ini
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+            link.classList.add('active-page');
+        }
     });
 });
 
-// Close menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('active');
-    }
-});
-
-// Smooth scrolling for anchor links
+// Fungsi smooth scroll (jika ada anchor links)
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+    anchor.addEventListener('click', function(e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
@@ -34,22 +79,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 behavior: 'smooth',
                 block: 'start'
             });
+            closeMenu();
         }
     });
-});
-
-// Add scroll effect to navbar
-let lastScroll = 0;
-const navbar = document.querySelector('nav');
-
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    if (currentScroll > 100) {
-        navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.15)';
-    } else {
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.08)';
-    }
-    
-    lastScroll = currentScroll;
 });

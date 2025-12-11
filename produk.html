@@ -6,7 +6,7 @@
     <title>Produk - Mineflybox_</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-* {
+        * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -249,8 +249,19 @@ nav {
 
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr);  /* Memaksa 4 kolom sejajar di desktop */
     gap: 2.5rem;
+}
+/* Tambahkan ini untuk responsivitas, agar tetap 1 kolom di mobile */
+@media (max-width: 1024px) {  /* Tambahkan breakpoint baru jika belum ada */
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);  /* 2 kolom di tablet */
+    }
+}
+@media (max-width: 768px) {
+    .products-grid {
+        grid-template-columns: 1fr;  /* 1 kolom di mobile, seperti yang sudah ada */
+    }
 }
 
 .product-card {
@@ -638,12 +649,6 @@ footer > div > p {
 .whatsapp { color: #25D366; }
 
 /* ==================== RESPONSIVE ==================== */
-@media (max-width: 1024px) {
-    .products-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
 @media (max-width: 768px) {
     .hamburger {
         display: flex;
@@ -724,8 +729,9 @@ footer > div > p {
         padding: 1.2rem 2rem;
         font-size: 1rem;
     }
-} 
-    </style>
+}
+</style>
+
 </head>
 <body>
     <nav>
@@ -736,7 +742,7 @@ footer > div > p {
             <span></span>
         </div>
         <ul class="nav-links" id="navLinks">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="home.html">Home</a></li>
             <li><a href="https://linktr.ee/mineflybox_padang">Linktree</a></li>
             <li><a href="Produk.html" class="active">Produk</a></li>
             <li><a href="Kontak.html">Kontak & Media</a></li>
@@ -980,6 +986,6 @@ footer > div > p {
         </div>
     </footer>
 
-    <script src="produk.js"></script>
+    <script src="produk-script.js"></script>
 </body>
 </html>
